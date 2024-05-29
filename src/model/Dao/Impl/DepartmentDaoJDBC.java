@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			conn = DB.getConnection();
 			
 			ps = conn.prepareStatement("insert into department "
-					+ "(Name) values (?)");
+					+ "(Name) values (?)",Statement.RETURN_GENERATED_KEYS);
 			
 			ps.setString(1, department.getName());
 		
