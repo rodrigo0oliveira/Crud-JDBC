@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
+import db.DBIntegrityException;
 import db.DbException;
 import model.Dao.DepartmentDao;
 import model.entities.Department;
@@ -61,26 +63,121 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
 	@Override
 	public void update(Department department) {
-		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DB.getConnection();
+			ps = conn.prepareStatement("update department "
+					+ "set Name = ? "
+					+ "where Id = ?");
+			
+			ps.setString(1, department.getName());
+			ps.setInt(2,department.getId());
+			
+			ps.executeUpdate();
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(ps);
+		}
+		
 
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DB.getConnection();
+			ps = conn.prepareStatement("delete from department "
+					+ "where id = ?");
+			ps.setInt(1, id);
+			
+			ps.executeUpdate();
+		}
+		catch(SQLException e) {
+			throw new DBIntegrityException(e.getMessage());
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(ps);
+		}
 	}
 
 	@Override
 	public Department findById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DB.getConnection();
+			
+			ps = conn.prepareStatement("select * from department where Id = ?");
+			
+			ps.setInt(1, id);
+			
+			rs = ps.executeQuery();
+			
+			Department department = new Department();
+			if(rs.next()) {
+				department = instantiateDepartment(rs);
+			}
+			return department;
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(ps);
+		} 
+		
 	}
 
 	@Override
 	public List<Department> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		List<Department> listDepartment = new ArrayList<Department>();
+		
+		try {
+			conn = DB.getConnection();
+			
+			ps = conn.prepareStatement("select * from department");
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Department department = instantiateDepartment(rs);
+				listDepartment.add(department);
+			
+				
+			}
+			return listDepartment;
+		}
+		catch(SQLException e){
+			throw new DbException(e.getMessage());
+			
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(ps);
+		} 
+		
+	}
+
+	private Department instantiateDepartment(ResultSet rs) throws SQLException {
+		Department department = new Department();
+		department.setId(rs.getInt("Id"));
+		department.setName(rs.getString("Name"));
+		return department;
 	}
 
 }
