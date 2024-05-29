@@ -15,10 +15,15 @@ public class Program2 {
 		 * System.out.println("Teste 1 - insert department"); Department department =
 		 * new Department(null,"Produtos"); departmentDao.insert(department);
 		 */
+		/*
+		 * System.out.println("-------------------");
+		 * System.out.println("Teste 2 - update department"); departmentDao.update(new
+		 * Department(11,"Roupas"));
+		 */
 		
 		System.out.println("-------------------");
-		System.out.println("Teste 2 - update department");
-		departmentDao.update(new Department(11,"Roupas"));
+		System.out.println("Teste 3 - delete by id department");
+		departmentDao.deleteById(12);
 
 	}
 
