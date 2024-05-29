@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 
 import db.DB;
+
 import db.DbException;
 import model.Dao.SellerDao;
 import model.entities.Department;
@@ -21,12 +23,51 @@ public class SellerDaoJDBC implements SellerDao{
 	
 	private Connection conn;
 	
+	
 	public SellerDaoJDBC(Connection conn) {
 		this.conn = conn;
 	}
 
 	@Override
 	public void insert(Seller seller) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DB.getConnection();
+			
+			ps = conn.prepareStatement("insert into seller "
+					+ "(Name,Email,BirthDate,BaseSalary,DepartmentId) "
+					+ "values (?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+					
+			
+			ps.setString(1, seller.getName());
+			ps.setString(2, seller.getEmail());
+			ps.setDate(3,new java.sql.Date(seller.getBirthDate().getTime()));
+			ps.setDouble(4, seller.getBaseSalary());
+			ps.setInt(5, seller.getDepartment().getId());
+			
+			int rowsAffected = ps.executeUpdate();
+			
+			if(rowsAffected>0) {
+				rs = ps.getGeneratedKeys();
+				if(rs.next()) {
+					int id = rs.getInt(1);
+					seller.setId(id);
+				}
+			}
+			else {
+				throw new DbException("Erro inesperado , nenhuma coluna afetada");
+			}
+			
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(ps);
+			DB.closeResultSet(rs);
+		}
 		
 		
 	}
