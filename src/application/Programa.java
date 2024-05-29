@@ -18,13 +18,22 @@ public class Programa {
 		
 		System.out.println(seller);
 		
-		System.out.println("");
+		System.out.println("--------");
 		
 		System.out.println("Teste 2- Seller find by department : ");
 		List<Seller> listSeller = new ArrayList<Seller>();
 		Department department = new Department(2,null);
 		
 		listSeller = sellerDao.findByDepartment(department);
+		
+		for(Seller obj : listSeller) {
+			System.out.println(obj);
+		}
+		
+		System.out.println("--------");
+		
+		System.out.println("Teste 3- find all : ");
+		listSeller = sellerDao.findAll();
 		
 		for(Seller obj : listSeller) {
 			System.out.println(obj);
