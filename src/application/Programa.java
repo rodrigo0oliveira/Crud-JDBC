@@ -45,12 +45,23 @@ public class Programa {
 		
 		System.out.println("--------");
 		
-		System.out.println("Teste 3- seller insert : ");
+		System.out.println("Teste 4- seller insert : ");
 		listSeller = sellerDao.findAll();
 		
 		Seller seller2 = new Seller(null,"Rodrigo","rodrigo@gmail",new Date(0),4000.00,department);
 		sellerDao.insert(seller2);
 		System.out.println("Insert - new Seller : "+seller2.getId());
+		
+		System.out.println("--------");
+		
+		System.out.println("Teste 5- seller update : ");
+		sellerDao.update(new Seller(2,"Rodrigo","rodrigo@gmail",new Date(0),4000.00,department));
+		
+		System.out.println("--------");
+		
+		System.out.println("Teste 6- seller delete : ");
+		sellerDao.deleteById(16);
+
 
 	}
 
