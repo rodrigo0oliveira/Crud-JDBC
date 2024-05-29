@@ -1,5 +1,8 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.Dao.DaoFactory;
 import model.Dao.DepartmentDao;
 import model.entities.Department;
@@ -28,10 +31,22 @@ public class Program2 {
 		 * departmentDao.deleteById(12);
 		 */
 
+		/*
+		 * System.out.println("-------------------");
+		 * System.out.println("Teste 4 - find by id department"); Department department
+		 * = departmentDao.findById(1); System.out.println(department);
+		 */
+		
 		System.out.println("-------------------");
-		System.out.println("Teste 3 - find by id department");
-		Department department = departmentDao.findById(1);
-		System.out.println(department);
+		System.out.println("Teste 5 - findAll department");
+		List<Department> listDepartment = new ArrayList<Department>();
+		listDepartment = departmentDao.findAll();
+		
+		for(Department obj : listDepartment) {
+			System.out.println(obj);
+		}
+		
+		
 
 	}
 
