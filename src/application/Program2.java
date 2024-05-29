@@ -10,12 +10,15 @@ public class Program2 {
 		
 		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		
+		/*
+		 * System.out.println("-------------------");
+		 * System.out.println("Teste 1 - insert department"); Department department =
+		 * new Department(null,"Produtos"); departmentDao.insert(department);
+		 */
+		
 		System.out.println("-------------------");
-		System.out.println("Teste 1 - insert department");
-		Department department = new Department(null,"Produtos");
-		departmentDao.insert(department);
-		
-		
+		System.out.println("Teste 2 - update department");
+		departmentDao.update(new Department(11,"Roupas"));
 
 	}
 
