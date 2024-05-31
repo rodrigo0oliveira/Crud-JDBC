@@ -24,7 +24,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 	}
 
 	@Override
-	public void insert(Department department) {
+	public String insert(Department department) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
@@ -45,13 +45,14 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 				if(rs.next()) {
 					int id = rs.getInt(1);
 					department.setId(id);
-					
-					
+					return "Inserção realizada com sucesso!";
 				}
 			}
 			else {
-				throw new DbException("Erro inesperado , nenhuma coluna afetada");
+				return "Erro, a inserção de um novo departamento falhou!";
 			}
+			return null;
+			
 		
 		}
 		catch(SQLException e) {
@@ -61,11 +62,12 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			DB.closeResultSet(rs);
 			DB.closeStatement(ps);
 		}
+		
 
 	}
 
 	@Override
-	public void update(Department department) {
+	public String update(Department department) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
@@ -78,7 +80,14 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			ps.setString(1, department.getName());
 			ps.setInt(2,department.getId());
 			
-			ps.executeUpdate();
+			int rowsAffected = ps.executeUpdate();
+			
+			if(rowsAffected>0) {
+				return "Departamento atualizado com sucesso!";
+			}
+			else {
+				return "Departamento não encontrado!";
+			}
 		}
 		catch(SQLException e) {
 			throw new DbException(e.getMessage());
@@ -92,7 +101,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 	}
 
 	@Override
-	public void deleteById(Integer id) {
+	public String deleteById(Integer id) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
@@ -102,7 +111,14 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 					+ "where id = ?");
 			ps.setInt(1, id);
 			
-			ps.executeUpdate();
+			int rowsAffected = ps.executeUpdate();
+			
+			if(rowsAffected>0) {
+				return "Departamento deletado com sucesso!";
+			}
+			else {
+				return "Departamento não encontrado!";
+			}
 		}
 		catch(SQLException e) {
 			throw new DBIntegrityException(e.getMessage());

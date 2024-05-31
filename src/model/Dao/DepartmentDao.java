@@ -6,11 +6,11 @@ import model.entities.Department;
 
 public interface DepartmentDao {
 	
-	void insert(Department department);
+	String insert(Department department);
 	
-	void update(Department department);
+	String update(Department department);
 	
-	void deleteById(Integer id);
+	String deleteById(Integer id);
 	
 	Department findById(Integer id);
 	
