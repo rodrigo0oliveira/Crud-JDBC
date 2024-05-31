@@ -2,7 +2,7 @@ package views.Department;
 
 public class ViewsDepartment {
 	
-	public String viewMenu() {
+	public static String viewMenu() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("---Department options--- \n");
 		sb.append("1) Insert new department \n");

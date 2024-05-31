@@ -8,7 +8,7 @@ public class Views {
 		sb.append("\n");
 		sb.append("D) Department \n");
 		sb.append("S) Seller \n");
-		sb.append("O) Exit the sistem");
+		sb.append("E) Exit the sistem");
 		
 		return sb.toString();
 	}

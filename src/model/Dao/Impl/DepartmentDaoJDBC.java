@@ -45,6 +45,8 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 				if(rs.next()) {
 					int id = rs.getInt(1);
 					department.setId(id);
+					
+					
 				}
 			}
 			else {

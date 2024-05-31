@@ -3,7 +3,7 @@ package views.Seller;
 public class ViewsSeller {
 	
 	
-	public String viewMenu() {
+	public static String viewMenu() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("---Seller options--- \n");
 		sb.append("1) Insert new seller \n");
