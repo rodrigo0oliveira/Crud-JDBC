@@ -33,7 +33,6 @@ public class ServiceSeller {
 			System.out.print("Digite a data de aniversário do vendedor (dd-MM-yyyy HH:mm:ss) :");
 			String date = sc.nextLine();
 			Date data = sdf.parse(date);
-			sc.nextLine();
 			System.out.print("Digite o salário do vendedor: ");
 			Double baseSalary = sc.nextDouble();
 			System.out.print("Digite o id do departamento do vendedor: ");
