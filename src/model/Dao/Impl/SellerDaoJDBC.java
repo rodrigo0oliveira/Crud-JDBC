@@ -30,7 +30,7 @@ public class SellerDaoJDBC implements SellerDao{
 	}
 
 	@Override
-	public void insert(Seller seller) {
+	public String insert(Seller seller) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
@@ -55,11 +55,13 @@ public class SellerDaoJDBC implements SellerDao{
 				if(rs.next()) {
 					int id = rs.getInt(1);
 					seller.setId(id);
+					return "Vendedor inserido com sucesso !";
 				}
 			}
 			else {
-				throw new DbException("Erro inesperado , nenhuma coluna afetada");
+				return "Erro,inserção de vendedor falhou!";
 			}
+			return null;
 			
 		}
 		catch(SQLException e) {
@@ -74,7 +76,7 @@ public class SellerDaoJDBC implements SellerDao{
 	}
 
 	@Override
-	public void update(Seller seller) {
+	public String update(Seller seller) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
@@ -92,10 +94,14 @@ public class SellerDaoJDBC implements SellerDao{
 			ps.setInt(5, seller.getDepartment().getId());
 			ps.setInt(6, seller.getId());
 			
-			ps.executeUpdate();
+			int rowsAffected = ps.executeUpdate();
 			
-			
-			
+			if(rowsAffected>0) {
+				return "Vendedor atualizado com sucesso!";
+			}
+			else {
+				return "Vendedor não encontrado";
+			}
 			
 		}
 		catch(SQLException e) {
@@ -110,7 +116,7 @@ public class SellerDaoJDBC implements SellerDao{
 	}
 
 	@Override
-	public void deleteById(Integer id) {
+	public String deleteById(Integer id) {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -123,7 +129,14 @@ public class SellerDaoJDBC implements SellerDao{
 			
 			ps.setInt(1, id);
 			
-			ps.executeUpdate();
+			int rowsAffected = ps.executeUpdate();
+			
+			if(rowsAffected>0) {
+				return "Vendedor deletado com sucesso!";
+			}
+			else {
+				return "Vendedor não encontrado!";
+			}
 			
 		}
 		catch(SQLException e) {
