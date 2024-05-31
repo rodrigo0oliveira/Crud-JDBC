@@ -81,8 +81,14 @@ public class ServiceDepartment {
 		List<Department> listDepartments = new ArrayList<Department>();
 		listDepartments = departmentDao.findAll();
 		
-		for(Department department : listDepartments) {
-			System.out.println(department);
+		if(listDepartments.size()>0) {
+			for(Department department : listDepartments) {
+				System.out.println(department);
+			}
 		}
+		else {
+			System.out.println("Não existem departamentos!");
+		}
+		
 	}
 }
