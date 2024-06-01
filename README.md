@@ -11,7 +11,7 @@ Esse projeto permite que o usuário gerencie vendedores que ficam salvos em uma 
 
 # Funcionalidades da aplicação
 
-Inicialmente o programa pede para escolher uma opção que deseja criar,modificar ou verificar ou encerrar a aplicação.
+Inicialmente o programa pede para escolher uma opção que deseja, entre elas : criar,modificar,verificar ou encerrar a aplicação.
 
 * D) Departamento
 * S) Vendedor
